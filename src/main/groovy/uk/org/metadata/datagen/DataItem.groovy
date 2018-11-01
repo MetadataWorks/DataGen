@@ -61,7 +61,7 @@ class DataItem {
         (1..noRows).each {
              randDays = Math.abs(new Random().nextInt() % 30) + 1
              randMonths= Math.abs(new Random().nextInt() % 12) + 1
-             randYears = Math.abs(new Random().nextInt() % 160) + 1890
+             randYears = Math.abs(new Random().nextInt() % 160) + 1900
             date = randDays + "/" + randMonths + "/" + randYears
             values.add(date)
         }
@@ -180,6 +180,29 @@ class DataItem {
         (1..noFalse).each {
             int randChoice = Math.abs(new Random().nextInt() % (enumerations.size()))
             String choice = enumerations.get(randChoice).getValue()
+            int randomNo = new Random().nextInt() % 30
+            randomNo.times{
+                List alphabet = ('a'..'z').collect { it }
+                int randomIndex = (new Random().nextInt() % 26) + 1
+                choice = choice + alphabet[randomIndex]
+
+            }
+
+            negativeValues.add(choice)
+        }
+
+    }
+
+    void generateChoiceKeys(int noRows, int noFalse){
+
+        (1..noRows).each {
+            int randChoice = Math.abs(new Random().nextInt() % (enumerations.size()))
+            values.add(enumerations.get(randChoice).getKey())
+        }
+
+        (1..noFalse).each {
+            int randChoice = Math.abs(new Random().nextInt() % (enumerations.size()))
+            String choice = enumerations.get(randChoice).getKey()
             int randomNo = new Random().nextInt() % 30
             randomNo.times{
                 List alphabet = ('a'..'z').collect { it }
