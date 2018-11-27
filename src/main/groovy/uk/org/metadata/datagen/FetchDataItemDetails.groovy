@@ -21,22 +21,14 @@ class FetchDataItemDetails {
         String metadataUrl = "http://localhost:8080"
         final String url = "${metadataUrl}/api/modelCatalogue/core/catalogueElement/dataType/3378@1.0.0/export"
         final String credential =  Credentials.basic("admin", "MTM5MDgyYTgtOThhYS00YmVkLTkzODMtNThlNjAxNjZiYjJh")
-       // final String credential =  Credentials.basic("admin", "admin")
-        //HttpUrl.Builder httpBuider = HttpUrl.parse(url).newBuilder()
 
         Request request = new Request.Builder()
                 .url("http://localhost:8080/catalogue/dataType/3378@1.0.0/export")
                 .get()
                 .addHeader("cache-control", "no-cache")
                 .addHeader("Postman-Token", "1f694d19-efbd-406c-be31-9463b33182b2")
-                .build();
+                .build()
 
-       // Response response = client.newCall(request).execute();
-//        Request request = new Request.Builder()
-//                .url(url)
-//                .header("Authorization", credential)
-//                .header("Accept", 'application/json')
-//                .build()
 
         try {
             Response response = client.newCall(request).execute()

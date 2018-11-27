@@ -5,7 +5,6 @@ import com.mifmif.common.regex.Generex
 import com.mifmif.common.regex.GenerexIterator
 
 class DataItem {
-
     String name
     ArrayList<String> values = null
     ArrayList<String> negativeValues= null
@@ -13,6 +12,8 @@ class DataItem {
     String regex
     String typeDetails
     Faker faker = null
+    long upper = 0
+    long lower = 0
 
     DataItem(String name){
         values = new ArrayList<String>()
@@ -21,19 +22,21 @@ class DataItem {
         this.faker = new Faker()
     }
 
-//    DataItem(String name, ArrayList<String> values ){
-//        values = new ArrayList<String>()
-//        this.name = name
-//        this.values = values
-//        this.faker = new Faker()
-//    }
-
     DataItem(String name, String regex){
         this.regex = regex
         values = new ArrayList<String>()
         negativeValues = new ArrayList<String>()
         this.name = name
         this.faker = new Faker()
+
+    }
+
+    DataItem(String name, long upper, long lower){
+
+        values = new ArrayList<String>()
+        negativeValues = new ArrayList<String>()
+        this.name = name
+
 
     }
 
@@ -49,6 +52,15 @@ class DataItem {
     DataItem(String name, String value, String regex, String typeDetails){
         DataItem(name, value, regex)
         this.typeDetails = typeDetails
+    }
+
+    void generateNumbersBetweenLimits(){
+        this.upper
+
+        long value
+        value = Math.abs(new Random().nextInt() % this.upper) + this.lower
+        values.add(value)
+
     }
 
     void generateDates(int noRows, int noFalse){
@@ -170,6 +182,104 @@ class DataItem {
 
     }
 
+    void generateEmailAddress(int noRows, int noFalse){
+        Generex generex = new Generex(regex)
+        (1..noRows).each {
+            String email = faker.name.firstName() + "@" + faker.hipster.word() + ".com"
+            this.values.add(email)
+        }
+
+        (1..noFalse).each {
+            String email = faker.name.firstName() + "@" + faker.hipster.word() + ".com"
+            List alphabet = ('a'..'z').collect { it }
+            int randomIndex = (new Random().nextInt() % 26) + 1
+            email = email + alphabet[randomIndex]
+            negativeValues.add(email)
+        }
+    }
+
+    void generateAddressStreetLine(int noRows, int noFalse){
+        Generex generex = new Generex(regex)
+        (1..noRows).each {
+            String noString = faker.address.streetName()
+            this.values.add(noString)
+        }
+
+        (1..noFalse).each {
+            String noString = faker.address.streetName()
+            List alphabet = ('a'..'z').collect { it }
+            int randomIndex = (new Random().nextInt() % 26) + 1
+            noString = noString + alphabet[randomIndex]
+            negativeValues.add(noString)
+        }
+    }
+
+    void generateAddressCityLine(int noRows, int noFalse){
+        Generex generex = new Generex(regex)
+        (1..noRows).each {
+            String noString = faker.address.cityName()
+            this.values.add(noString)
+        }
+
+        (1..noFalse).each {
+            String noString = faker.address.cityName()
+            List alphabet = ('a'..'z').collect { it }
+            int randomIndex = (new Random().nextInt() % 26) + 1
+            noString = noString + alphabet[randomIndex]
+            negativeValues.add(noString)
+        }
+    }
+
+    void generateAddressStateLine(int noRows, int noFalse){
+        Generex generex = new Generex(regex)
+        (1..noRows).each {
+            String noString = faker.address.state()
+            this.values.add(noString)
+        }
+
+        (1..noFalse).each {
+            String noString = faker.address.state()
+            List alphabet = ('a'..'z').collect { it }
+            int randomIndex = (new Random().nextInt() % 26) + 1
+            noString = noString + alphabet[randomIndex]
+            negativeValues.add(noString)
+        }
+    }
+
+    void generateAddressCountryLine(int noRows, int noFalse){
+        Generex generex = new Generex(regex)
+        (1..noRows).each {
+            String noString = faker.address.country()
+            this.values.add(noString)
+        }
+
+        (1..noFalse).each {
+            String noString = faker.address.country()
+            List alphabet = ('a'..'z').collect { it }
+            int randomIndex1 = (new Random().nextInt() % 26) + 1
+            int randomIndex2 = (new Random().nextInt() % 26) + 1
+            noString =  alphabet[randomIndex1] + noString + alphabet[randomIndex2]
+            negativeValues.add(noString)
+        }
+    }
+
+    void generatePhoneNumber(int noRows, int noFalse){
+        Generex generex = new Generex(regex)
+        (1..noRows).each {
+            String noString = faker.phoneNumber.cellPhone()
+            this.values.add(noString)
+        }
+
+        (1..noFalse).each {
+            String noString = faker.phoneNumber.cellPhone()
+            List alphabet = ('a'..'z').collect { it }
+            int randomIndex1 = (new Random().nextInt() % 26) + 1
+            int randomIndex2 = (new Random().nextInt() % 26) + 1
+            noString =  alphabet[randomIndex1] + noString + alphabet[randomIndex2]
+            negativeValues.add(noString)
+        }
+    }
+
     void generateChoices(int noRows, int noFalse){
 
         (1..noRows).each {
@@ -216,6 +326,8 @@ class DataItem {
 
     }
 
+
+
     void generateNumbers(int noRows, int noFalse){
         Generex generex = new Generex(regex)
         (1..noRows).each {
@@ -234,7 +346,7 @@ class DataItem {
 
     void generateItems(int noRows, int noFalse) {
 
-        if(name.substring(0, 4) == "Date"){
+        if((name.substring(0, 4) == "Date")|(name.substring(name.length() - 4, name.length()) == "Date")){
             generateDates(noRows)
         }else{
             Generex generex = new Generex(regex)
@@ -253,6 +365,8 @@ class DataItem {
         }
 
     }
+
+
 
 
 }

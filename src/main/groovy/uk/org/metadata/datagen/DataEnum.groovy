@@ -1,6 +1,6 @@
 package uk.org.metadata.datagen
 
-class DataEnum {
+class DataEnum{
     String key
     String value
 
