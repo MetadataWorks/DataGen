@@ -1,6 +1,6 @@
 package uk.org.metadata.datagen
 
-class CancerSampleTracking {
+class CancerSampleTracking extends DataClassSpreadsheet{
 
 
     List<DataEnum> TestResultType = null
@@ -18,16 +18,22 @@ class CancerSampleTracking {
     List<DataEnum> BiologicalRelationship = null
     List<DataEnum> GroupType = null
     List<DataEnum> SpecificDisease = null
+    int numberOfRows = 1
+    int numberOfRowsFalseData = 1
+
+    CancerSampleTracking(int rows,int falseRows){
+
+        setupDataStructures()
+        numberOfRows = rows
+        numberOfRowsFalseData = falseRows
+        cstDataItems = new ArrayList<DataItem>()
 
 
-    CancerSampleTracking(){
-
-        setupData()
 
     }
 
-        void setupData(){
-
+        void setupDataStructures(){
+        SharedDatasets test = new SharedDatasets()
         TestResultType = new ArrayList()
         TestResultType.add(new DataEnum("2","Female"))
         TestResultType.add(new DataEnum("1","Male"))
@@ -54,27 +60,27 @@ class CancerSampleTracking {
         cstDataItems <<  clinicSampleType
 
         DataItem ClinicSampleDateTime = new DataItem("Clinic Sample Date Time")
-        ClinicSampleDateTime.generateDates(numberOfRows,numberOfRowsFalseData)
+        ClinicSampleDateTime.generateDateTimesAtMiddayISO8601(numberOfRows,numberOfRowsFalseData)
         cstDataItems <<  ClinicSampleDateTime
 
-        DataItem LaboratoryID = new DataItem("Laboratory ID", "[a-zA-Z0-9]{3,9}")
+        DataItem LaboratoryID = new DataItem("Laboratory ID", "[a-zA-Z0-9]{5,9}")
         LaboratoryID.generateItems(numberOfRows,numberOfRowsFalseData)
         cstDataItems <<  LaboratoryID
 
-        DataItem SampleID = new DataItem("Sample ID", "\\d{10}")
-        SampleID.generateNumbers(numberOfRows,numberOfRowsFalseData)
-        cstDataItems <<  SampleID
+        DataItem LaboratorySampleID = new DataItem("Laboratory Sample ID", "\\d{10}")
+        LaboratorySampleID.generateNumbers(numberOfRows,numberOfRowsFalseData)
+        cstDataItems <<  LaboratorySampleID
 
-        DataItem LaboratorySampleVolume = new DataItem("Laboratory Sample Volume", "^[+]?\\d+([.]\\d)?$")
+        DataItem LaboratorySampleVolume = new DataItem("Laboratory Sample Volume", "^[+]?\\d+([.]\\d)?")
         LaboratorySampleVolume.generateNumbers(numberOfRows,numberOfRowsFalseData)
         cstDataItems <<  LaboratorySampleVolume
 
-        DataItem LaboratoryRemainingVolumeBanked = new DataItem("Laboratory Remaining Volume Banked", "^[+]?\\d+([.]\\d)?$")
+        DataItem LaboratoryRemainingVolumeBanked = new DataItem("Laboratory Remaining Volume Banked", "^[+]?\\d+([.]\\d)?")
         LaboratoryRemainingVolumeBanked.generateNumbers(numberOfRows,numberOfRowsFalseData)
         cstDataItems <<  LaboratoryRemainingVolumeBanked
 
         DataItem  GMCSampleDispatchDate = new DataItem(" GMC Sample Dispatch Date" )
-        GMCSampleDispatchDate.generateDates(numberOfRows,numberOfRowsFalseData)
+        GMCSampleDispatchDate.generateDateTimesAtMiddayISO8601(numberOfRows,numberOfRowsFalseData)
         cstDataItems <<  GMCSampleDispatchDate
 
         DataItem GMCSampleConsignmentNumber = new DataItem("GMC Sample Consignment Number", "[a-zA-Z0-9]{2,9}-\\d{2,4}-\\d{1,2}-\\d{1,2}-([1-2]|\\d{1,2}-[1-2]([-]FT)?)")
@@ -101,7 +107,7 @@ class CancerSampleTracking {
         TumourSize.generateNumbers(numberOfRows,numberOfRowsFalseData)
         cstDataItems <<  TumourSize
 
-        DataItem MorphologyICD = new DataItem("Morphology (ICD)", "\\d{4}/\d{1}")
+        DataItem MorphologyICD = new DataItem("Morphology (ICD)", "\\d{4}/\\d{1}")
         MorphologyICD.generateNumbers(numberOfRows,numberOfRowsFalseData)
         cstDataItems <<  MorphologyICD
 
@@ -142,7 +148,7 @@ class CancerSampleTracking {
         cstDataItems <<  MacrodissectionDetails
 
         DataItem SnapFreezingStartDateTime = new DataItem("Snap Freezing Start DateTime")
-        SnapFreezingStartDateTime.generateDates(numberOfRows,numberOfRowsFalseData)
+        SnapFreezingStartDateTime.generateDateTimesAtMiddayISO8601(numberOfRows,numberOfRowsFalseData)
         cstDataItems <<  SnapFreezingStartDateTime
 
         DataItem TypeOfFixative = new DataItem("Tissue Source", SharedDatasets.TypeOfFixative)
@@ -150,11 +156,11 @@ class CancerSampleTracking {
         cstDataItems <<  TypeOfFixative
 
         DataItem FixationStartDateTime = new DataItem("Fixation Start DateTime")
-        FixationStartDateTime.generateDates(numberOfRows,numberOfRowsFalseData)
+        FixationStartDateTime.generateDateTimesAtMiddayISO8601(numberOfRows,numberOfRowsFalseData)
         cstDataItems <<  FixationStartDateTime
 
         DataItem FixationEndDateTime = new DataItem("Fixation End DateTime")
-        FixationEndDateTime.generateDates(numberOfRows,numberOfRowsFalseData)
+        FixationEndDateTime.generateDateTimesAtMiddayISO8601(numberOfRows,numberOfRowsFalseData)
         cstDataItems <<  FixationEndDateTime
 
         DataItem FixationComments = new DataItem("Fixation Comments", "[a-zA-Z0-9]{20}")
@@ -189,7 +195,7 @@ class CancerSampleTracking {
         TumourSampleType.generateChoices(numberOfRows,numberOfRowsFalseData)
         cstDataItems <<  TumourSampleType
 
-        DataItem ScrollThickness = new DataItem("Scroll Thickness", "^[+-]?([0-9]*[.])?[0-9]+$")
+        DataItem ScrollThickness = new DataItem("Scroll Thickness", "^[+-]?([0-9]*[.])?[0-9]+")
         ScrollThickness.generateNumbers(numberOfRows,numberOfRowsFalseData)
         cstDataItems <<  ScrollThickness
 
@@ -201,7 +207,7 @@ class CancerSampleTracking {
         NumberOfSections.generateNumbers(numberOfRows,numberOfRowsFalseData)
         cstDataItems <<  NumberOfSections
 
-        DataItem SectionThickness = new DataItem("Section Thickness", "^[+-]?([0-9]*[.])?[0-9]+$")
+        DataItem SectionThickness = new DataItem("Section Thickness", "^[+-]?([0-9]*[.])?[0-9]+\$")
         SectionThickness.generateNumbers(numberOfRows,numberOfRowsFalseData)
         cstDataItems <<  SectionThickness
 
