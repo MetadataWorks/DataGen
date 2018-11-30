@@ -29,11 +29,11 @@ class SharedDatasets {
     static List<DataEnum> ChoiceTrueFalse = null
 
 
-    static List<DataEnum> TypeOfFixative = null
-    static List<DataEnum> TypeOfFixative = null
-    static List<DataEnum> TypeOfFixative = null
-    static List<DataEnum> TypeOfFixative = null
-    static List<DataEnum> TypeOfFixative = null
+//    static List<DataEnum> TypeOfFixative = null
+//    static List<DataEnum> TypeOfFixative = null
+//    static List<DataEnum> TypeOfFixative = null
+//    static List<DataEnum> TypeOfFixative = null
+//    static List<DataEnum> TypeOfFixative = null
 
 
 
@@ -44,7 +44,7 @@ class SharedDatasets {
     static void setupData(){
 
 
-        DiseaseSubType
+        DiseaseSubType = new ArrayList<DataEnum>()
         DiseaseSubType.add(new DataEnum("adult_glioma","Adult Glioma"))
         DiseaseSubType.add(new DataEnum("acute lymphoblastic leukaemia","(ALL) Acute lymphoblastic leukaemia"))
         DiseaseSubType.add(new DataEnum("acute lymphoblastic leukaemia","(AML) Acute myeloid Leukaemia"))
@@ -102,7 +102,7 @@ class SharedDatasets {
         DiseaseSubType.add(new DataEnum("acute lymphoblastic leukaemia","Endodermal sinus"))
         DiseaseSubType.add(new DataEnum("acute lymphoblastic leukaemia","Endometrioid adenocarcinoma"))
         DiseaseSubType.add(new DataEnum("acute lymphoblastic leukaemia","Ependymoma"))
-        DiseaseSubType.add(new DataEnum("acute lymphoblastic leukaemia","Epithelioid angiosar"))coma
+        DiseaseSubType.add(new DataEnum("acute lymphoblastic leukaemia","Epithelioid angiosar"))
         DiseaseSubType.add(new DataEnum("acute lymphoblastic leukaemia","Extracranial rhabdoid tumour"))
         DiseaseSubType.add(new DataEnum("acute lymphoblastic leukaemia","Extraskeletal chondrosarcoma"))
         DiseaseSubType.add(new DataEnum("acute lymphoblastic leukaemia","Extraskeletal chordoma"))
