@@ -8,10 +8,10 @@ class Utility {
 
         //db.buildTestDataset("testMoreData2.xlsx", 5, 5)
 
-        db.buildcancerCohortsDataset("cancerCohorts.xlsx", 5, 5)
+        //db.buildcancerCohortsDataset("cancerCohorts.xlsx", 5, 5)
 
-        CancerSampleTracking cst = new CancerSampleTracking()
-        db.buildDataset(cst, "cancerSampleTracking.xlsx", 5, 5)
+        DataClassSpreadsheet cst = new CancerSampleTracking(200, 20)
+        db.buildDataset(cst, "Data - Sample Metadata","cancerSampleTracking1.xlsx", 200, 20)
         //db.buildcancerSampleTrackingDataset("cancerCSampleTracking.xlsx", 5, 5)
 
     }
