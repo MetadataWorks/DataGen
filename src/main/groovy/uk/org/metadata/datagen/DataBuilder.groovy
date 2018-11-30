@@ -609,17 +609,16 @@ class DataBuilder {
 
     }
 
-    static void buildDataset(DataClassSpreadsheet dataset, String filename,int numberOfRows,int numberOfRowsFalseData){
+    static void buildDataset(DataClassSpreadsheet dataset, String sheetName, String filename,int numberOfRows,int numberOfRowsFalseData){
         File file = new File(filename)
 
         int counter1 = 0
         int counter2 = 0
 
-        //CancerCohortRegistration ccr = new CancerCohortRegistration(numberOfRows,numberOfRowsFalseData)
         ArrayList<DataItem> ccrDataItems = dataset.getDataItems()
 
         PoiSpreadsheetBuilder.INSTANCE.build  {
-            sheet('Data Registration') {
+            sheet(sheetName) {
                 row {
                     ccrDataItems.each{
                         cell it.getName()
