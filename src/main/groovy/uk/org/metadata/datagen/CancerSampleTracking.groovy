@@ -32,7 +32,8 @@ class CancerSampleTracking extends DataClassSpreadsheet{
 
     }
 
-        void setupDataStructures(){
+    void setupDataStructures(){
+
         SharedDatasets test = new SharedDatasets()
         TestResultType = new ArrayList()
         TestResultType.add(new DataEnum("2","Female"))

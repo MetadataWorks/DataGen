@@ -609,13 +609,15 @@ class DataBuilder {
 
     }
 
-    static void buildDataset(DataClassSpreadsheet dataset, String sheetName, String filename,int numberOfRows,int numberOfRowsFalseData){
+    static void buildDataset(DataClassSpreadsheet dataset, String sheetName, String filename ){
         File file = new File(filename)
 
         int counter1 = 0
         int counter2 = 0
 
         ArrayList<DataItem> ccrDataItems = dataset.getDataItems()
+        int numberOfRows = dataset.getNumberOfRows()
+        int numberOfRowsFalseData = dataset.getNumberOfRowsFalseData()
 
         PoiSpreadsheetBuilder.INSTANCE.build  {
             sheet(sheetName) {

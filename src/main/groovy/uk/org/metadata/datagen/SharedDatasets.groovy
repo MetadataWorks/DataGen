@@ -29,7 +29,7 @@ class SharedDatasets {
     static List<DataEnum> ChoiceTrueFalse = null
 
 
-//    static List<DataEnum> TypeOfFixative = null
+     static List<DataEnum> TestResultType = null
 //    static List<DataEnum> TypeOfFixative = null
 //    static List<DataEnum> TypeOfFixative = null
 //    static List<DataEnum> TypeOfFixative = null
@@ -42,6 +42,26 @@ class SharedDatasets {
     }
 
     static void setupData(){
+
+        TestResultType = new ArrayList<DataEnum>()
+        TestResultType.add(new DataEnum("absolute_cell_count","Absolute cell count (number of cells)"))
+        TestResultType.add(new DataEnum("agarose","Agarose (Pass / Fail)"))
+        TestResultType.add(new DataEnum("cellularity","The total number of cells (neoplastic and non-neoplastic) in the tumour sample from which DNA was harvested Very low (<700 cells), Low (<4,000 cells), Medium (4,000-10,000 cells), High (>10,000 cells), Very high (>50,000 cells)"))
+        TestResultType.add(new DataEnum("delta_cq","delta Cq"))
+        TestResultType.add(new DataEnum("nanodrop_od_260_280","Nanodrop OD 260/280"))
+        TestResultType.add(new DataEnum("nanodrop_concentration","Nanodrop concentration ng/ul"))
+        TestResultType.add(new DataEnum("percent_necrosis","Proportion of the submitted tumour sample that is necrotic (0-100)"))
+        TestResultType.add(new DataEnum("picogreen_concentration","Picogreen Concentration ng/ul"))
+        TestResultType.add(new DataEnum("picodrop_concentration","PicoDrop Concentration ng/ul"))
+        TestResultType.add(new DataEnum("picodrop_od_260_280","PicoDrop OD 260/280"))
+        TestResultType.add(new DataEnum("qubit","Qubit ng/ul"))
+        TestResultType.add(new DataEnum("summary_qc","Summary QC Pass / Fail"))
+        TestResultType.add(new DataEnum("tumour_content","Proportion of the total number of nuclei in the submitted sample that are neoplastic nuclei (Low, Medium, High) – Low <40%; Medium 40-60%; High>60%."))
+        TestResultType.add(new DataEnum("trinean_od_260_280","Trinean OD 260/280"))
+        TestResultType.add(new DataEnum("glomax_concentration","Glomax concentration ng/ul"))
+        TestResultType.add(new DataEnum("trinean_concentration","Trinean Concentration ng/ul"))
+        TestResultType.add(new DataEnum("tapestation_din_value","Tapestation DIN Value (0 to 10)"))
+        TestResultType.add(new DataEnum("tapestation_din_percent_over_23kb","Tapestation Percent Over 23kb"))
 
 
         DiseaseSubType = new ArrayList<DataEnum>()
