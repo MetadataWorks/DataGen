@@ -71,10 +71,10 @@ class DataItem {
         String date = null
 
         (1..noRows).each {
-             randDays = Math.abs(new Random().nextInt() % 30) + 1
-             randMonths= Math.abs(new Random().nextInt() % 12) + 1
-             randYears = Math.abs(new Random().nextInt() % 160) + 1900
-            date = randDays + "/" + randMonths + "/" + randYears
+            randDays = Math.abs(new Random().nextInt() % 30) + 1
+            randMonths= Math.abs(new Random().nextInt() % 12) + 1
+            randYears = Math.abs(new Random().nextInt() % 160) + 1900
+            date = randDays + "-" + randMonths + "-" + randYears
             values.add(date)
         }
 
@@ -82,7 +82,61 @@ class DataItem {
             randDays = Math.abs(new Random().nextInt() % 30) + 10
             randMonths= Math.abs(new Random().nextInt() % 12) + 12
             randYears = Math.abs(new Random().nextInt() % 160) + 2050
-            date = randDays + "/" + randMonths + "/" + randYears
+            date = randDays + "-" + randMonths + "-" + randYears
+            negativeValues.add(date)
+        }
+    }
+
+    void generateDateTimesAtMidday(int noRows, int noFalse){
+
+        String randDays = null
+        String randMonths = null
+        String randYears = null
+        String date = null
+
+        (1..noRows).each {
+            randDays = Math.abs(new Random().nextInt() % 30) + 1
+            randMonths= Math.abs(new Random().nextInt() % 12) + 1
+            randYears = Math.abs(new Random().nextInt() % 160) + 1900
+            date = randDays + "-" + randMonths + "-" + randYears + "T12:00:00"
+            values.add(date)
+        }
+
+        (1..noFalse).each {
+            randDays = Math.abs(new Random().nextInt() % 30) + 10
+            randMonths= Math.abs(new Random().nextInt() % 12) + 12
+            randYears = Math.abs(new Random().nextInt() % 160) + 2050
+            date = randDays + "-" + randMonths + "-" + randYears + "T12:00:00"
+            negativeValues.add(date)
+        }
+    }
+
+    void generateDateTimesAtMiddayISO8601(int noRows, int noFalse){
+
+        String randDays = null
+        String randMonths = null
+        String randYears = null
+        String date = null
+
+        (1..noRows).each {
+            randDays = Math.abs(new Random().nextInt() % 30) + 1
+            if (randDays.length() < 2){
+                randDays = "0" + randDays
+            }
+            randMonths= Math.abs(new Random().nextInt() % 12) + 1
+            if (randMonths.length() < 2){
+                randMonths = "0" + randMonths
+            }
+            randYears = Math.abs(new Random().nextInt() % 160) + 1900
+            date = randDays + "-" + randMonths + "-" + randYears + "T12:00:00"
+            values.add(date)
+        }
+
+        (1..noFalse).each {
+            randDays = Math.abs(new Random().nextInt() % 30) + 10
+            randMonths= Math.abs(new Random().nextInt() % 12) + 12
+            randYears = Math.abs(new Random().nextInt() % 160) + 2050
+            date = randDays + "-" + randMonths + "-" + randYears + "T12:00:00"
             negativeValues.add(date)
         }
     }
