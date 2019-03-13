@@ -73,7 +73,34 @@ class DataItem {
         (1..noRows).each {
             randDays = Math.abs(new Random().nextInt() % 30) + 1
             randMonths= Math.abs(new Random().nextInt() % 12) + 1
-            randYears = Math.abs(new Random().nextInt() % 160) + 1900
+            randYears = Math.abs(new Random().nextInt() % 101) + 1900
+            date = randDays + "-" + randMonths + "-" + randYears
+            values.add(date)
+        }
+
+        (1..noFalse).each {
+            randDays = Math.abs(new Random().nextInt() % 30) + 10
+            randMonths= Math.abs(new Random().nextInt() % 12) + 12
+            randYears = Math.abs(new Random().nextInt() % 160) + 2050
+            date = randDays + "-" + randMonths + "-" + randYears
+            negativeValues.add(date)
+        }
+    }
+
+    void generateDatesAfter(int noRows, int noFalse, int year){
+
+        String randDays = null
+        String randMonths = null
+        String randYears = null
+        String date = null
+        //Get difference between limit date and now - to use as range for random year
+        int yearNow = Calendar.getInstance().get(Calendar.YEAR)
+        int possibleYears = yearNow - year
+
+        (1..noRows).each {
+            randDays = Math.abs(new Random().nextInt() % 30) + 1
+            randMonths= Math.abs(new Random().nextInt() % 12) + 1
+            randYears = Math.abs(new Random().nextInt() % possibleYears) + year
             date = randDays + "-" + randMonths + "-" + randYears
             values.add(date)
         }

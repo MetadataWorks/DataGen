@@ -1,5 +1,9 @@
 package uk.org.metadata.datagen
 
+import uk.org.metadata.dataclass.CancerSampleTrackingTestResults
+import uk.org.metadata.dataclass.DataClassSpreadsheet
+import uk.org.metadata.dataclass.MVPClientLevelData
+
 class Utility {
 
     static void main(String[] args) {
@@ -10,8 +14,9 @@ class Utility {
 
         //db.buildcancerCohortsDataset("cancerCohorts.xlsx", 5, 5)
 
-        DataClassSpreadsheet cst = new CancerSampleTrackingTestResults(200, 20)
-        db.buildDataset(cst, "Data - Sample Metadata","cancerSampleTrackingTestResults.xlsx" )
+        //DataClassSpreadsheet cst = new CancerSampleTrackingTestResults(200, 20)
+        DataClassSpreadsheet cst = new MVPClientLevelData(200, 20)
+        db.buildDataset(cst, "Data - Sample Metadata","mvpSampleData.xlsx" )
 
 
     }

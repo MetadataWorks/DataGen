@@ -1,4 +1,8 @@
-package uk.org.metadata.datagen
+package uk.org.metadata.dataclass
+
+import uk.org.metadata.dataclass.DataClassSpreadsheet
+import uk.org.metadata.datagen.DataItem
+import uk.org.metadata.datagen.SharedDatasets
 
 class CancerSampleTrackingTestResults extends DataClassSpreadsheet{
 

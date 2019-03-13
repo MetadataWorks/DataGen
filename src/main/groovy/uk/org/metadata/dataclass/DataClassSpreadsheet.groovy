@@ -1,4 +1,6 @@
-package uk.org.metadata.datagen
+package uk.org.metadata.dataclass
+
+import uk.org.metadata.datagen.DataItem
 
 abstract class DataClassSpreadsheet {
 

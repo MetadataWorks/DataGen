@@ -30,7 +30,7 @@ class SharedDatasets {
 
 
      static List<DataEnum> TestResultType = null
-//    static List<DataEnum> TypeOfFixative = null
+     static List<DataEnum> AccommodationStatus = null
 //    static List<DataEnum> TypeOfFixative = null
 //    static List<DataEnum> TypeOfFixative = null
 //    static List<DataEnum> TypeOfFixative = null
@@ -42,6 +42,28 @@ class SharedDatasets {
     }
 
     static void setupData(){
+
+        AccommodationStatus = new ArrayList<DataEnum>()
+        AccommodationStatus.add(new DataEnum("1","Owner occupier or shared ownership scheme"))
+        AccommodationStatus.add(new DataEnum("2","Tenant (including local authority, arm's length management organisations, registered social landlord, housing association)"))
+        AccommodationStatus.add(new DataEnum("3","Tenant - private landlord"))
+        AccommodationStatus.add(new DataEnum("4","Settled mainstream housing with family / friends (including flat-sharing)"))
+        AccommodationStatus.add(new DataEnum("5","Supported accommodation / supported lodgings / supported group home (i.e. accommodation supported by staff or resident care taker)"))
+        AccommodationStatus.add(new DataEnum("6","Shared Lives scheme"))
+        AccommodationStatus.add(new DataEnum("7","Approved premises for offenders released from prison or under probation supervision (e.g. probation hostel); Sheltered housing / extra care housing / other sheltered housing"))
+        AccommodationStatus.add(new DataEnum("8","Mobile accommodation for Gypsy / Roma and Traveller communities"))
+        AccommodationStatus.add(new DataEnum("9","Rough sleeper / squatting"))
+        AccommodationStatus.add(new DataEnum("10","Night shelter / emergency hostel / direct access hostel (temporary accommodation accepting self-referrals); Refuge"))
+        AccommodationStatus.add(new DataEnum("11","Placed in temporary accommodation by the council (including homelessness resettlement)"))
+        AccommodationStatus.add(new DataEnum("12","Staying with family / friends as a short-term guest"))
+        AccommodationStatus.add(new DataEnum("13","Acute / long-term healthcare residential facility or hospital (e.g. NHS Independent general hospital / clinic, long-stay hospital, specialist rehabilitation / recovery hospital)"))
+        AccommodationStatus.add(new DataEnum("14","Registered care home"))
+        AccommodationStatus.add(new DataEnum("15","Registered nursing home"))
+        AccommodationStatus.add(new DataEnum("16","Prison / Young offenders institution / detention centre"))
+        AccommodationStatus.add(new DataEnum("17","Other temporary accommodation"))
+        AccommodationStatus.add(new DataEnum("18","Unknown"))
+
+
 
         TestResultType = new ArrayList<DataEnum>()
         TestResultType.add(new DataEnum("absolute_cell_count","Absolute cell count (number of cells)"))

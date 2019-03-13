@@ -1,6 +1,9 @@
 package uk.org.metadata.datagen
 
 import org.modelcatalogue.spreadsheet.builder.poi.PoiSpreadsheetBuilder
+import uk.org.metadata.dataclass.CancerCohortRegistration
+import uk.org.metadata.dataclass.DataClassSpreadsheet
+import uk.org.metadata.dataclass.RareDiseaseConsentAndPhenotype
 
 class DataBuilder {
 
