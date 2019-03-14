@@ -28,20 +28,30 @@ class SharedDatasets {
     static List<DataEnum> DiseaseSubType = null
     static List<DataEnum> ChoiceTrueFalse = null
 
-
+// DHSC
      static List<DataEnum> TestResultType = null
      static List<DataEnum> AccommodationStatus = null
-//    static List<DataEnum> TypeOfFixative = null
-//    static List<DataEnum> TypeOfFixative = null
-//    static List<DataEnum> TypeOfFixative = null
+     static List<DataEnum> EmploymentStatus = null
 
-
+     static List<DataEnum> DHSCClientType = null
+     static List<DataEnum> DHSCRouteOfAccess = null
+     static List<DataEnum> DHSCEventType = null
+     static List<DataEnum>DHSCReviewReason = null
+     static List<DataEnum>DHSCFundingType = null
 
     SharedDatasets(){
         setupData()
     }
 
     static void setupData(){
+
+        EmploymentStatus = new ArrayList<DataEnum>()
+        EmploymentStatus.add(new DataEnum("1","Paid: Less than 16 hours a week"))
+        EmploymentStatus.add(new DataEnum("2","Paid: 16 or more hours a week"))
+        EmploymentStatus.add(new DataEnum("3","Not in Paid Employment (seeking work)"))
+        EmploymentStatus.add(new DataEnum("4","Not in Paid Employment (not actively seeking work / retired"))
+        EmploymentStatus.add(new DataEnum("5","Unknown"))
+
 
         AccommodationStatus = new ArrayList<DataEnum>()
         AccommodationStatus.add(new DataEnum("1","Owner occupier or shared ownership scheme"))
@@ -468,6 +478,11 @@ class SharedDatasets {
         Ethnicity.add(new DataEnum("R",	"Other Ethnic Groups: Chinese"))
         Ethnicity.add(new DataEnum("Z",	"Not stated"))
 
+
+        DHSCClientType = new ArrayList()
+        DHSCClientType.add(new DataEnum("1","Service User"))
+        DHSCClientType.add(new DataEnum("2","Carer"))
+
         ChoiceYesNo = new ArrayList()
         ChoiceYesNo.add(new DataEnum("yes","Yes"))
         ChoiceYesNo.add(new DataEnum("no","No"))
@@ -502,6 +517,7 @@ class SharedDatasets {
         Consanguinity.add(new DataEnum("P","Possible"))
         Consanguinity.add(new DataEnum("N","No"))
         Consanguinity.add(new DataEnum("Y","Yes"))
+
 
         BiologicalRelationship = new ArrayList()
         BiologicalRelationship.add(new DataEnum("Mother","Mother"))
@@ -599,6 +615,73 @@ class SharedDatasets {
         SpecificDisease.add(new DataEnum("11102", "Intellectual disability"))
         SpecificDisease.add(new DataEnum("11103", "Congenital myopathy"))
         SpecificDisease.add(new DataEnum("11104"," Distal myopathies"))
+
+        EmploymentStatus = new ArrayList<DataEnum>()
+        EmploymentStatus.add(new DataEnum("1","Paid: Less than 16 hours a week"))
+        EmploymentStatus.add(new DataEnum("2","Paid: 16 or more hours a week"))
+        EmploymentStatus.add(new DataEnum("3","Not in Paid Employment (seeking work)"))
+        EmploymentStatus.add(new DataEnum("4","Not in Paid Employment (not actively seeking work / retired"))
+        EmploymentStatus.add(new DataEnum("5","Unknown"))
+
+
+        AccommodationStatus = new ArrayList<DataEnum>()
+        AccommodationStatus.add(new DataEnum("1","Owner occupier or shared ownership scheme"))
+        AccommodationStatus.add(new DataEnum("2","Tenant (including local authority, arm's length management organisations, registered social landlord, housing association)"))
+        AccommodationStatus.add(new DataEnum("3","Tenant - private landlord"))
+        AccommodationStatus.add(new DataEnum("4","Settled mainstream housing with family / friends (including flat-sharing)"))
+        AccommodationStatus.add(new DataEnum("5","Supported accommodation / supported lodgings / supported group home (i.e. accommodation supported by staff or resident care taker)"))
+        AccommodationStatus.add(new DataEnum("6","Shared Lives scheme"))
+        AccommodationStatus.add(new DataEnum("7","Approved premises for offenders released from prison or under probation supervision (e.g. probation hostel); Sheltered housing / extra care housing / other sheltered housing"))
+        AccommodationStatus.add(new DataEnum("8","Mobile accommodation for Gypsy / Roma and Traveller communities"))
+        AccommodationStatus.add(new DataEnum("9","Rough sleeper / squatting"))
+        AccommodationStatus.add(new DataEnum("10","Night shelter / emergency hostel / direct access hostel (temporary accommodation accepting self-referrals); Refuge"))
+        AccommodationStatus.add(new DataEnum("11","Placed in temporary accommodation by the council (including homelessness resettlement)"))
+        AccommodationStatus.add(new DataEnum("12","Staying with family / friends as a short-term guest"))
+        AccommodationStatus.add(new DataEnum("13","Acute / long-term healthcare residential facility or hospital (e.g. NHS Independent general hospital / clinic, long-stay hospital, specialist rehabilitation / recovery hospital)"))
+        AccommodationStatus.add(new DataEnum("14","Registered care home"))
+        AccommodationStatus.add(new DataEnum("15","Registered nursing home"))
+        AccommodationStatus.add(new DataEnum("16","Prison / Young offenders institution / detention centre"))
+        AccommodationStatus.add(new DataEnum("17","Other temporary accommodation"))
+        AccommodationStatus.add(new DataEnum("18","Unknown"))
+
+
+
+        DHSCRouteOfAccess = new ArrayList()
+        DHSCRouteOfAccess.add(new DataEnum("1","Planned Entry (Transition)"))
+        DHSCRouteOfAccess.add(new DataEnum("2","Discharge from Hospital"))
+        DHSCRouteOfAccess.add(new DataEnum("3","Diversion from Hospital services"))
+        DHSCRouteOfAccess.add(new DataEnum("4","Self-funder with depleted funds of which previously provided with 12-week disregard or deferred payment (since 1st April 2014)"))
+        DHSCRouteOfAccess.add(new DataEnum("5","Community / Other route"))
+        DHSCRouteOfAccess.add(new DataEnum("6","Prison"))
+
+
+        DHSCEventType = new ArrayList()
+        DHSCEventType.add(new DataEnum("1","Contact"))
+        DHSCEventType.add(new DataEnum("2","Assessment"))
+        DHSCEventType.add(new DataEnum("3","Support Plan"))
+        DHSCEventType.add(new DataEnum("4","Service"))
+        DHSCEventType.add(new DataEnum("5","Review"))
+
+
+        DHSCReviewReason = new ArrayList()
+        DHSCReviewReason.add(new DataEnum("1","Planned"))
+        DHSCReviewReason.add(new DataEnum("2","Hospital Episode"))
+        DHSCReviewReason.add(new DataEnum("3","Issues related to carer"))
+        DHSCReviewReason.add(new DataEnum("4","Change of residence"))
+        DHSCReviewReason.add(new DataEnum("5","Safeguarding Concern"))
+        DHSCReviewReason.add(new DataEnum("6","Fall"))
+        DHSCReviewReason.add(new DataEnum("7","Bereavement"))
+        DHSCReviewReason.add(new DataEnum("8","Change in client condition"))
+        DHSCReviewReason.add(new DataEnum("9","Other Accident / Incident"))
+        DHSCReviewReason.add(new DataEnum("10","Any significant event in prison"))
+
+        DHSCFundingType = new ArrayList()
+        DHSCFundingType.add(new DataEnum("1","Direct Payment only"))
+        DHSCFundingType.add(new DataEnum("1","Part Direct Payment"))
+        DHSCFundingType.add(new DataEnum("1","CASSR managed Personal Budget"))
+        DHSCFundingType.add(new DataEnum("1","Direct Payment only"))
+
+
 
 
     }
