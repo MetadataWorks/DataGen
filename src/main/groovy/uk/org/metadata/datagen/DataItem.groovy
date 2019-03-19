@@ -4,6 +4,9 @@ import com.github.javafaker.Faker
 import com.mifmif.common.regex.Generex
 import com.mifmif.common.regex.GenerexIterator
 
+import java.text.Format
+import java.text.SimpleDateFormat
+
 class DataItem {
     String name
     ArrayList<String> values = null
@@ -71,19 +74,45 @@ class DataItem {
         String date = null
 
         (1..noRows).each {
+            randDays = String.format("%02d",Math.abs(new Random().nextInt() % 30) + 1)
+            randMonths= String.format("%02d",Math.abs(new Random().nextInt() % 12) + 1)
+            randYears = Math.abs(new Random().nextInt() % 101) + 1900
+
+            date = randDays + "-" + randMonths + "-" + randYears
+            values.add(date)
+        }
+
+        (1..noFalse).each {
+            randDays = String.format("%02d",Math.abs(new Random().nextInt() % 30) + 10)
+            randMonths= String.format("%02d",Math.abs(new Random().nextInt() % 12) + 12)
+            randYears = Math.abs(new Random().nextInt() % 160) + 2050
+            date = randDays + "-" + randMonths + "-" + randYears
+            negativeValues.add(date)
+        }
+    }
+
+    void generateNHSDates(int noRows, int noFalse){
+
+        int randDays = 0
+        int randMonths = 0
+        int randYears = 0
+        Format formatter = new SimpleDateFormat("dd-MMM-yyy")
+
+        (1..noRows).each {
             randDays = Math.abs(new Random().nextInt() % 30) + 1
             randMonths= Math.abs(new Random().nextInt() % 12) + 1
             randYears = Math.abs(new Random().nextInt() % 101) + 1900
-            date = randDays + "-" + randMonths + "-" + randYears
-            values.add(date)
+
+            String s = formatter.format(new Date(randDays,randMonths,randYears))
+            values.add(s)
         }
 
         (1..noFalse).each {
             randDays = Math.abs(new Random().nextInt() % 30) + 10
             randMonths= Math.abs(new Random().nextInt() % 12) + 12
             randYears = Math.abs(new Random().nextInt() % 160) + 2050
-            date = randDays + "-" + randMonths + "-" + randYears
-            negativeValues.add(date)
+            String s = formatter.format(new Date(randDays,randMonths,randYears))
+            negativeValues.add(s)
         }
     }
 
@@ -98,8 +127,8 @@ class DataItem {
         int possibleYears = yearNow - year
 
         (1..noRows).each {
-            randDays = Math.abs(new Random().nextInt() % 30) + 1
-            randMonths= Math.abs(new Random().nextInt() % 12) + 1
+            randDays = String.format("%02d",Math.abs(new Random().nextInt() % 30) + 1)
+            randMonths= String.format("%02d",Math.abs(new Random().nextInt() % 12) + 1)
             randYears = Math.abs(new Random().nextInt() % possibleYears) + year
             date = randDays + "-" + randMonths + "-" + randYears
             values.add(date)
@@ -122,16 +151,16 @@ class DataItem {
         String date = null
 
         (1..noRows).each {
-            randDays = Math.abs(new Random().nextInt() % 30) + 1
-            randMonths= Math.abs(new Random().nextInt() % 12) + 1
+            randDays = String.format("%02d",Math.abs(new Random().nextInt() % 30) + 1)
+            randMonths= String.format("%02d",Math.abs(new Random().nextInt() % 12) + 1)
             randYears = Math.abs(new Random().nextInt() % 160) + 1900
             date = randDays + "-" + randMonths + "-" + randYears + "T12:00:00"
             values.add(date)
         }
 
         (1..noFalse).each {
-            randDays = Math.abs(new Random().nextInt() % 30) + 10
-            randMonths= Math.abs(new Random().nextInt() % 12) + 12
+            randDays = String.format("%02d",Math.abs(new Random().nextInt() % 30) + 10)
+            randMonths= String.format("%02d",Math.abs(new Random().nextInt() % 12) + 12)
             randYears = Math.abs(new Random().nextInt() % 160) + 2050
             date = randDays + "-" + randMonths + "-" + randYears + "T12:00:00"
             negativeValues.add(date)
@@ -146,11 +175,11 @@ class DataItem {
         String date = null
 
         (1..noRows).each {
-            randDays = Math.abs(new Random().nextInt() % 30) + 1
+            randDays = String.format("%02d",Math.abs(new Random().nextInt() % 30) + 1)
             if (randDays.length() < 2){
                 randDays = "0" + randDays
             }
-            randMonths= Math.abs(new Random().nextInt() % 12) + 1
+            randMonths= String.format("%02d",Math.abs(new Random().nextInt() % 12) + 1)
             if (randMonths.length() < 2){
                 randMonths = "0" + randMonths
             }
@@ -160,9 +189,9 @@ class DataItem {
         }
 
         (1..noFalse).each {
-            randDays = Math.abs(new Random().nextInt() % 30) + 10
-            randMonths= Math.abs(new Random().nextInt() % 12) + 12
-            randYears = Math.abs(new Random().nextInt() % 160) + 2050
+            randDays = String.format("%02d",Math.abs(new Random().nextInt() % 30) + 10)
+            randMonths= String.format("%02d",Math.abs(new Random().nextInt() % 12) + 12)
+            randYears = String.format("%02d",Math.abs(new Random().nextInt() % 160) + 2050)
             date = randDays + "-" + randMonths + "-" + randYears + "T12:00:00"
             negativeValues.add(date)
         }

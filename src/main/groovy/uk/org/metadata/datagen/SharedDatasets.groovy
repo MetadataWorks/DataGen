@@ -9,6 +9,7 @@ class SharedDatasets {
     static List<DataEnum> ChoiceYesNo = null
     static List<DataEnum> ChoiceYesNoNR = null
     static List<DataEnum> ChoiceYesNoUK = null
+    static List<DataEnum> ChoiceYesNoEnum = null
     static List<DataEnum> ConsentForm = null
     static List<DataEnum> ParticipantType = null
     static List<DataEnum> Consanguinity = null
@@ -486,6 +487,10 @@ class SharedDatasets {
         ChoiceYesNo = new ArrayList()
         ChoiceYesNo.add(new DataEnum("yes","Yes"))
         ChoiceYesNo.add(new DataEnum("no","No"))
+
+        ChoiceYesNoEnum = new ArrayList()
+        ChoiceYesNoEnum.add(new DataEnum("1","Yes"))
+        ChoiceYesNoEnum.add(new DataEnum("2","No"))
 
         ChoiceTrueFalse = new ArrayList()
         ChoiceTrueFalse.add(new DataEnum("true","True"))
