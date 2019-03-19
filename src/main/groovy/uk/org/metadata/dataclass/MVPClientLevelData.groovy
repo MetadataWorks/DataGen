@@ -48,7 +48,7 @@ class MVPClientLevelData extends DataClassSpreadsheet{
             mvpDataItems.add(lastName)
 
             DataItem Gender = new DataItem( "Gender", SharedDatasets.PersonStatedGender)
-            Gender.generateChoices(numberOfRows,numberOfRowsFalseData)
+            Gender.generateChoiceKeys(numberOfRows,numberOfRowsFalseData)
             mvpDataItems <<  Gender
 
             DataItem Ethnicity = new DataItem("Ethnicity",  SharedDatasets.Ethnicity)
@@ -56,10 +56,10 @@ class MVPClientLevelData extends DataClassSpreadsheet{
             mvpDataItems <<  Ethnicity
 
             DataItem DateOfBirth =  new DataItem("Date Of Birth", "[a-zA-Z\\ _']{1,50}")
-            DateOfBirth.generateDates(numberOfRows,numberOfRowsFalseData)
+            DateOfBirth.generateNHSDates(numberOfRows,numberOfRowsFalseData)
             mvpDataItems << DateOfBirth
 
-            DataItem DateOfDeath =  new DataItem("Date Of Death", "[a-zA-Z\\ _']{1,50}")
+            DataItem DateOfDeath =  new DataItem("Date Of Death", "[0-3]\\d[0-9]\\d(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)-[1-2]\\d[0-9]\\d{3}")
             DateOfDeath.generateDatesAfter(numberOfRows,numberOfRowsFalseData, 2003)
             mvpDataItems << DateOfDeath
 
@@ -68,19 +68,19 @@ class MVPClientLevelData extends DataClassSpreadsheet{
             mvpDataItems << Postcode
 
             DataItem AccommodationStatus = new DataItem("Accommodation Status",  SharedDatasets.AccommodationStatus)
-            AccommodationStatus.generateChoices(numberOfRows,numberOfRowsFalseData)
+            AccommodationStatus.generateChoiceKeys(numberOfRows,numberOfRowsFalseData)
             mvpDataItems <<  AccommodationStatus
 
             DataItem EmploymentStatus = new DataItem("Employment Status",  SharedDatasets.EmploymentStatus)
-            EmploymentStatus.generateChoices(numberOfRows,numberOfRowsFalseData)
+            EmploymentStatus.generateChoiceKeys(numberOfRows,numberOfRowsFalseData)
             mvpDataItems <<  EmploymentStatus
 
-            DataItem hasCarer =  new DataItem("Has Carer", SharedDatasets.ChoiceYesNo )
-            hasCarer.generateChoices(numberOfRows,numberOfRowsFalseData)
+            DataItem hasCarer =  new DataItem("Has Carer", SharedDatasets.ChoiceYesNoEnum )
+            hasCarer.generateChoiceKeys(numberOfRows,numberOfRowsFalseData)
             mvpDataItems << hasCarer
 
             DataItem clientType =  new DataItem("Client Type", SharedDatasets.DHSCClientType )
-            clientType.generateChoices(numberOfRows,numberOfRowsFalseData)
+            clientType.generateChoiceKeys(numberOfRows,numberOfRowsFalseData)
             mvpDataItems << clientType
 
             DataItem CaredForLinkedID = new DataItem("Cared For Linked ID", "[0-9]{10}")
@@ -96,15 +96,15 @@ class MVPClientLevelData extends DataClassSpreadsheet{
             mvpDataItems.add(eventRef)
 
             DataItem eventDate = new DataItem("Event Date")
-            eventDate.generateDates(numberOfRows,numberOfRowsFalseData)
+            eventDate.generateDateTimesAtMiddayISO8601(numberOfRows,numberOfRowsFalseData)
             mvpDataItems.add(eventDate)
 
-            DataItem routeOfAccess =  new DataItem("Client Type", SharedDatasets.DHSCRouteOfAccess )
-            routeOfAccess.generateChoices(numberOfRows,numberOfRowsFalseData)
+            DataItem routeOfAccess =  new DataItem("Route of Access", SharedDatasets.DHSCRouteOfAccess )
+            routeOfAccess.generateChoiceKeys(numberOfRows,numberOfRowsFalseData)
             mvpDataItems << routeOfAccess
 
             DataItem eventType =  new DataItem("Event Type", SharedDatasets.DHSCEventType )
-            eventType.generateChoices(numberOfRows,numberOfRowsFalseData)
+            eventType.generateChoiceKeys(numberOfRows,numberOfRowsFalseData)
             mvpDataItems << eventType
 
             DataItem eventGroup =  new DataItem("Event Group", "[a-zA-Z\\ _']{1,50}" )
@@ -128,7 +128,7 @@ class MVPClientLevelData extends DataClassSpreadsheet{
             mvpDataItems << localDefinition
 
             DataItem reviewReason =  new DataItem("Review Reason", SharedDatasets.DHSCReviewReason )
-            reviewReason.generateChoices(numberOfRows,numberOfRowsFalseData)
+            reviewReason.generateChoiceKeys(numberOfRows,numberOfRowsFalseData)
             mvpDataItems << reviewReason
 
             DataItem serviceType =  new DataItem("Service Type", "[a-zA-Z\\ _']{1,50}" )
@@ -136,7 +136,7 @@ class MVPClientLevelData extends DataClassSpreadsheet{
             mvpDataItems << serviceType
 
             DataItem fundingType =  new DataItem("Funding Type", SharedDatasets.DHSCFundingType )
-            fundingType.generateChoices(numberOfRows,numberOfRowsFalseData)
+            fundingType.generateChoiceKeys(numberOfRows,numberOfRowsFalseData)
             mvpDataItems << fundingType
 
             DataItem unitCost = new DataItem("Unit Cost",  "[0-9]+(\\.[0-9]{1,2})?")
