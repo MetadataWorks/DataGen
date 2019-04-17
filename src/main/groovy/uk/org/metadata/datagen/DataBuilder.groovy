@@ -7,7 +7,6 @@ import uk.org.metadata.dataclass.RareDiseaseConsentAndPhenotype
 
 class DataBuilder {
 
-
     static void buildRareDiseaseRegAndPhenotypeDataset(String filename,int numberOfRows,int numberOfRowsFalseData){
         File file = new File(filename)
 
@@ -612,6 +611,12 @@ class DataBuilder {
 
     }
 
+    /**
+     * Generic method for building a spreadsheet from a DataClassSpreadsheet
+     * @param dataset
+     * @param sheetName
+     * @param filename
+     */
     static void buildDataset(DataClassSpreadsheet dataset, String sheetName, String filename ){
         File file = new File(filename)
 
