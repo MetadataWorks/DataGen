@@ -4,6 +4,8 @@ import com.github.javafaker.Faker
 import com.opencsv.bean.CsvBindByName
 import com.opencsv.bean.CsvDate
 import com.opencsv.bean.CsvToBeanBuilder
+import com.opencsv.bean.StatefulBeanToCsv
+import com.opencsv.bean.StatefulBeanToCsvBuilder
 
 import java.util.concurrent.TimeUnit
 
@@ -19,16 +21,23 @@ class LincolnshireFakeData {
 
     void lincolnshireFakeData(){
         ClassLoader classLoader  = getClass().getClassLoader()
-//        ClassLoader classLoader  = ClassLoader.getSystemClassLoader()
 
         File file = new File(
                 classLoader.getResource("uk/org/metadata/dhsc/lincolnshire/ClientId_with_EarliestStart_LatestEnd.csv").getFile()
         )
         // Should be a CSV file with three columns: clientId, startDate, endDate.
         List<String> actualData = file.collect().drop(1) // drop the header line
-//        List<ClientStartEnd> clientStartEndList = actualData.take(5).collect{ ClientStartEnd.fromCsvLine(it) }
+
         List<ClientStartEnd> clientStartEndList = new CsvToBeanBuilder(file.newReader()).withType(ClientStartEnd.class).build().parse()
-        clientStartEndList.take(5).each {println "${it} =>\n ${ClientGenderEtc.from(it)}\n"}
+        // TODO: Validate that each clientStartEnd's startDate <= endDate
+
+        List<ClientGenderEtcFormatted> clientGenderEtcFormattedList = clientStartEndList.collect{ ClientGenderEtcFormatted.from(ClientGenderEtc.from(it)) }
+        // TODO: Parallelize conversion (e.g. with ExecutorService)
+        println ("Finished converting at ${new Date()}")
+        Writer writer = new FileWriter("lincolnshireFakeDataOutput.csv")
+        StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build()
+        beanToCsv.write(clientGenderEtcFormattedList)
+        writer.close()
 
     }
 
@@ -77,6 +86,7 @@ class ClientStartEnd {
  * (Fake) gender, ethnicity, date of birth, date of death for each client.
  */
 class ClientGenderEtc {
+
     Long clientId
     Gender gender
     Ethnicity ethnicity
@@ -84,6 +94,7 @@ class ClientGenderEtc {
     Date dateOfDeath
 
     static ClientGenderEtc from(ClientStartEnd clientStartEnd) {
+
         Faker faker = new Faker()
 
         Long clientId = clientStartEnd.clientId
@@ -127,12 +138,39 @@ class ClientGenderEtc {
     }
 }
 
+class ClientGenderEtcFormatted {
+    String clientId
+    String gender
+    String ethnicity
+    String dateOfBirth
+    String dateOfDeath
+
+    ClientGenderEtcFormatted(String clientId, String gender, String ethnicity, String dateOfBirth, String dateOfDeath) {
+        this.clientId = clientId
+        this.gender = gender
+        this.ethnicity = ethnicity
+        this.dateOfBirth = dateOfBirth
+        this.dateOfDeath = dateOfDeath
+    }
+
+    static ClientGenderEtcFormatted from(ClientGenderEtc clientGenderEtc) {
+        println "Formatting ${clientGenderEtc}"
+        new ClientGenderEtcFormatted(
+                clientGenderEtc.clientId.toString(),
+                clientGenderEtc.gender.name,
+                clientGenderEtc.ethnicity.name,
+                clientGenderEtc.dateOfBirth?.format("yyyy-MM-dd"),
+                clientGenderEtc.dateOfDeath?.format("yyyy-MM-dd")
+        )
+    }
+}
+
 enum Gender {
     MALE("Male"),
     FEMALE("Female"),
     NOT_KNOWN("Not Known")
 
-    private String name
+    final String name
 
     Gender(String name) {
         this.name = name
@@ -163,8 +201,10 @@ enum Ethnicity {
     Arab("Arab"),
     Any_other_ethnic_group("Any other ethnic group"),
     Refused("Refused"),
-    Undeclared_Not_known("Undeclared / Not known"),
-    private String name
+    Undeclared_Not_known("Undeclared / Not known")
+
+    final String name
+
     Ethnicity(String name) {
         this.name = name
     }
