@@ -1,8 +1,11 @@
 package uk.org.metadata.dhsc.lincolnshire
 
+import com.github.javafaker.Faker
 import com.opencsv.bean.CsvBindByName
 import com.opencsv.bean.CsvDate
 import com.opencsv.bean.CsvToBeanBuilder
+
+import java.util.concurrent.TimeUnit
 
 /**
  * Class to generate fake gender, ethnicity, date of birth, date of death for each client,
@@ -25,7 +28,8 @@ class LincolnshireFakeData {
         List<String> actualData = file.collect().drop(1) // drop the header line
 //        List<ClientStartEnd> clientStartEndList = actualData.take(5).collect{ ClientStartEnd.fromCsvLine(it) }
         List<ClientStartEnd> clientStartEndList = new CsvToBeanBuilder(file.newReader()).withType(ClientStartEnd.class).build().parse()
-        clientStartEndList.take(5).each {println it}
+        clientStartEndList.take(5).each {println "${it} =>\n ${ClientGenderEtc.from(it)}\n"}
+
     }
 
     static void main(String[] args) {
@@ -80,7 +84,46 @@ class ClientGenderEtc {
     Date dateOfDeath
 
     static ClientGenderEtc from(ClientStartEnd clientStartEnd) {
+        Faker faker = new Faker()
 
+        Long clientId = clientStartEnd.clientId
+        Gender gender = Gender.random()
+        Ethnicity ethnicity = Ethnicity.random()
+        Date dateOfBirth = clientStartEnd.startDate ?
+                faker.date().past(100 * 365, TimeUnit.DAYS, clientStartEnd.startDate) : // before startDate
+                (clientStartEnd.endDate ?
+                        faker.date().past(100 * 365, TimeUnit.DAYS, clientStartEnd.endDate) : // before endDate
+                        faker.date().past(100 * 365, TimeUnit.DAYS)) // before NOW
+        Date dateOfDeath
+        if (new Random().nextInt(2)) {
+            dateOfDeath = null // maybe not dead yet...
+        }
+        else {
+            dateOfDeath = clientStartEnd.endDate ?
+                    faker.date().between(clientStartEnd.endDate, new Date()) : // between latest event date and now
+                    (clientStartEnd.startDate ?
+                            faker.date().between(clientStartEnd.startDate, new Date()) : // between earliest start date and now
+                            faker.date().between(dateOfBirth, new Date())) // between DOB and now
+
+        }
+        new ClientGenderEtc(clientId, gender, ethnicity, dateOfBirth, dateOfDeath)
+    }
+
+
+    ClientGenderEtc() {
+    }
+
+    ClientGenderEtc(Long clientId, Gender gender, Ethnicity ethnicity, Date dateOfBirth, Date dateOfDeath) {
+        this.clientId = clientId
+        this.gender = gender
+        this.ethnicity = ethnicity
+        this.dateOfBirth = dateOfBirth
+        this.dateOfDeath = dateOfDeath
+    }
+
+    @Override
+    public String toString() {
+        return "ClientGenderEtc[clientId: ${clientId}, gender: ${gender}, ethnicity: ${ethnicity}, dateOfBirth: ${dateOfBirth}, dateOfDeath: ${dateOfDeath}]"
     }
 }
 
@@ -93,6 +136,10 @@ enum Gender {
 
     Gender(String name) {
         this.name = name
+    }
+
+    static Gender random() {
+        values()[(new Random()).nextInt(values().size())]
     }
 }
 
@@ -120,5 +167,8 @@ enum Ethnicity {
     private String name
     Ethnicity(String name) {
         this.name = name
+    }
+    static Ethnicity random() {
+        values()[(new Random()).nextInt(values().size())]
     }
 }
