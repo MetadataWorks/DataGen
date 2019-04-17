@@ -20,20 +20,22 @@ import java.util.concurrent.TimeUnit
 class LincolnshireFakeData {
 
     void lincolnshireFakeData(){
-        ClassLoader classLoader  = getClass().getClassLoader()
 
+        // GET DATA
+        ClassLoader classLoader  = getClass().getClassLoader()
         File file = new File(
                 classLoader.getResource("uk/org/metadata/dhsc/lincolnshire/ClientId_with_EarliestStart_LatestEnd.csv").getFile()
         )
         // Should be a CSV file with three columns: clientId, startDate, endDate.
-        List<String> actualData = file.collect().drop(1) // drop the header line
-
         List<ClientStartEnd> clientStartEndList = new CsvToBeanBuilder(file.newReader()).withType(ClientStartEnd.class).build().parse()
         // TODO: Validate that each clientStartEnd's startDate <= endDate
 
+        // GENERATE FAKE DATA
         List<ClientGenderEtcFormatted> clientGenderEtcFormattedList = clientStartEndList.collect{ ClientGenderEtcFormatted.from(ClientGenderEtc.from(it)) }
         // TODO: Parallelize conversion (e.g. with ExecutorService)
         println ("Finished converting at ${new Date()}")
+
+        // WRITE FAKE DATA
         Writer writer = new FileWriter("lincolnshireFakeDataOutput.csv")
         StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer).build()
         beanToCsv.write(clientGenderEtcFormattedList)
