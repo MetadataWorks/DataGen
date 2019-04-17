@@ -6,7 +6,13 @@ import com.opencsv.bean.CsvDate
 import com.opencsv.bean.CsvToBeanBuilder
 import com.opencsv.bean.StatefulBeanToCsv
 import com.opencsv.bean.StatefulBeanToCsvBuilder
+import groovy.time.TimeCategory
+import groovy.time.TimeDuration
 
+import java.util.concurrent.Callable
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+import java.util.concurrent.Future
 import java.util.concurrent.TimeUnit
 
 /**
@@ -19,7 +25,7 @@ import java.util.concurrent.TimeUnit
  */
 class LincolnshireFakeData {
 
-    void lincolnshireFakeData(){
+    void lincolnshireFakeData(int numThreads){
 
         // GET DATA
         ClassLoader classLoader  = getClass().getClassLoader()
@@ -31,7 +37,8 @@ class LincolnshireFakeData {
         // TODO: Validate that each clientStartEnd's startDate <= endDate
 
         // GENERATE FAKE DATA
-        List<ClientGenderEtcFormatted> clientGenderEtcFormattedList = clientStartEndList.collect{ ClientGenderEtcFormatted.from(ClientGenderEtc.from(it)) }
+//        List<ClientGenderEtcFormatted> clientGenderEtcFormattedList = clientStartEndList.collect{ ClientGenderEtcFormatted.from(ClientGenderEtc.from(it)) }
+        List<ClientGenderEtcFormatted> clientGenderEtcFormattedList = processParallel(clientStartEndList, numThreads)
         // TODO: Parallelize conversion (e.g. with ExecutorService)
         println ("Finished converting at ${new Date()}")
 
@@ -43,9 +50,41 @@ class LincolnshireFakeData {
 
     }
 
+    List<ClientGenderEtcFormatted> processParallel(List<ClientStartEnd> clientStartEndList, int numThreads) {
+        int workSize = Math.ceil(clientStartEndList.size().toDouble() / numThreads.toDouble()) as int
+        List<List<ClientStartEnd>> parallelizedLists = clientStartEndList.collate(workSize)
+
+        ExecutorService executorService = Executors.newFixedThreadPool(numThreads)
+        List<Callable<List<ClientGenderEtcFormatted>>> tasks = parallelizedLists.collect {List<ClientStartEnd> clientStartEndSubList ->
+            new Callable<List<ClientGenderEtcFormatted>>() {
+                @Override
+                public List<ClientGenderEtcFormatted> call() throws Exception {
+                    Date startTime = new Date()
+                    List<ClientGenderEtcFormatted> result = clientStartEndSubList.collect{ClientGenderEtcFormatted.from(ClientGenderEtc.from(it))}
+                    Date endTime = new Date()
+                    TimeDuration timeDuration = TimeCategory.minus(endTime, startTime)
+                    println "Processing list starting with clientId ${clientStartEndSubList[0].clientId} took ${timeDuration.toString()}"
+                    return result
+
+                }
+            }
+        }
+
+        Date startTime = new Date()
+        List<Future<List<ClientGenderEtcFormatted>>> results = executorService.invokeAll(tasks)
+        TimeDuration timeDuration = TimeCategory.minus(new Date(), startTime)
+        println "Whole parallel processing took time ${timeDuration.toString()} (${numThreads} threads)"
+
+        List<ClientGenderEtcFormatted> result = []
+        for (Future<List<ClientGenderEtcFormatted>> future: results) {
+            result.addAll(future.get())
+        }
+        result
+    }
+
     static void main(String[] args) {
         LincolnshireFakeData lincolnshireFakeData = new LincolnshireFakeData()
-        lincolnshireFakeData.lincolnshireFakeData()
+        lincolnshireFakeData.lincolnshireFakeData(60)
     }
 
 
