@@ -7,6 +7,12 @@ import com.mifmif.common.regex.GenerexIterator
 import java.text.Format
 import java.text.SimpleDateFormat
 
+/**
+ * Will become a column in a spreadsheet.
+ * Represents a sequence of values of a certain type (e.g. string, date, etc.)
+ * The values, and then the negativeValues, are printed into the column of a spreadsheet.
+ * Contains methods to generate specified amounts of data for various types of data.
+ */
 class DataItem {
     String name
     ArrayList<String> values = null
