@@ -72,6 +72,19 @@ class DataItem {
 
     }
 
+    void splitValues(){
+        Collections.shuffle(values);
+        // instantiate two arraylists for the values
+        ArrayList<String> redList = new ArrayList<String>();
+        ArrayList<String> blueList = new ArrayList<String>();
+
+        // add the first half of players to teamRed
+        redList.addAll(values.subList(0, values.size() / 2 + values.size()%2));
+        // and the second half to teamBlue
+        blueList.addAll(values.subList(values.size() / 2 + values.size()%2, values.size()));
+
+    }
+
     void generateDates(int noRows, int noFalse){
 
         String randDays = null

@@ -2,6 +2,7 @@ package uk.org.metadata.datagen
 
 import org.modelcatalogue.spreadsheet.builder.poi.PoiSpreadsheetBuilder
 import uk.org.metadata.dataclass.CancerCohortRegistration
+import uk.org.metadata.dataclass.CancerInvestTumour
 import uk.org.metadata.dataclass.DataClassSpreadsheet
 import uk.org.metadata.dataclass.RareDiseaseConsentAndPhenotype
 
@@ -571,7 +572,48 @@ class DataBuilder {
 
     }
 
-    static void buildcancerCohortsDataset(String filename,int numberOfRows,int numberOfRowsFalseData){
+    static void buildCancerInvestTumourDataset(String filename,int numberOfRows,int numberOfRowsFalseData){
+        File file = new File(filename)
+
+        int counter1 = 0
+        int counter2 = 0
+
+        CancerInvestTumour ccr = new CancerInvestTumour(numberOfRows,numberOfRowsFalseData)
+
+        ArrayList<DataItem> ccrDataItems = ccr.getDataItems()
+
+        PoiSpreadsheetBuilder.INSTANCE.build  {
+            sheet('Data Update') {
+                row {
+                    ccrDataItems.each{
+                        cell it.getName()
+                    }
+                }
+                numberOfRows.times {
+                    row {
+                        ccrDataItems.each{
+                            cell it.values.get(counter1)
+                        }
+                    }
+                    counter1++
+                }
+
+                numberOfRowsFalseData.times {
+                    row {
+                        row {
+                            ccrDataItems.each{
+                                cell it.negativeValues.get(counter2)
+                            }
+                        }
+                    }
+                    counter2++
+                }
+            }
+        } writeTo file
+
+    }
+
+    static void buildCancerCohortsDataset2(String filename,int numberOfRows,int numberOfRowsFalseData){
         File file = new File(filename)
 
         int counter1 = 0
